@@ -1,4 +1,7 @@
             // ГЛОБАЛ ХУВЬЦАГЧИД
+            //Ойын биткенин сактайтын ХУВЬЦАГЧ
+            var isNewGame;
+
             // Ойыншынын кезегин сактайтын ХУВЬЦАГЧ(var)
             var activePlayer;
 
@@ -15,7 +18,9 @@
             initGame(); 
 
             // Ойынды жанадан бастайдын ФУНКЦ
-             function initGame(){
+            function initGame(){
+                // Жана ойын басталды дегенди билдретин ALERT код
+                isNewGame = true;
 
                 activePlayer = 0;           
                 scores = [0, 0];           
@@ -40,14 +45,16 @@
                 document.querySelector(".player-0-panel").classList.add("active");
 
                 document.querySelector('.dice').style.display = 'none';
-                };
+            };
 
             // Жана бастау ФУНКЦИЯСЫН шакыру код
             initGame();
 
             // Дайсты айландыратын батырманын код
-            document.querySelector(".btn-roll").addEventListener("click", function(){   
-                
+            document.querySelector(".btn-roll").addEventListener("click", function(){  
+                          
+        if(isNewGame){
+
             // 1 - 6 ишинде RANDOM сан шыгарып алатын код
             var diceNumber = Math.floor ( Math.random () * 6) +1;   
             
@@ -67,11 +74,14 @@
             
             // 1 түскени үшин ойыншынын кезегин ауыстыратын код
             switchToNextPlayer();       
+                }
+        }else{
+            alert("Тоглоом дуссан байна. NEW GAME товчийг дарж шинээр эхлэнэ үү");
         }});
 
             //HOLD батырмасы 
             document.querySelector(".btn-hold").addEventListener("click", function(){   
-                
+        if(isNewGame){
             //Ойыншынын жыйнаган упайын ГЛОБАЛ упайга косатын код 
             scores[activePlayer] = scores[activePlayer] + roundScore;
 
@@ -80,7 +90,10 @@
         
         // Ойыншынын женимпаз болганын ( упайы 100 - ден коппе екенин) тексеретин код
         if(scores[activePlayer] >=10){
-
+            
+            //Ойыннын биткенин билдреди
+            isNewGame = false;
+            
             // Женинпаз деген текстни атынын орынына шыгаратын код
             document.getElementById('name-' + activePlayer).textContent = "WINNER!!!";
             document.querySelector(".player-" + activePlayer + "-panel").classList.add("winner");
@@ -89,8 +102,10 @@
 
             // Ойншынын кезегин ауыстырады
             switchToNextPlayer(); 
+        }
+        }else{
+            alert("Тоглоом дуссан байна. NEW GAME товчийг дарж шинээр эхлэнэ үү");
         }});
-
 
             // Бул ФУНКЦ ойншынын кезегин ауыстырады
             function switchToNextPlayer(){
@@ -108,7 +123,7 @@
             
             // Дайсты уакытша көринбейтин болдыратын код
             diceDom.style.display = "none";            
-            }
+            };
 
             // NEW GAME & Жанадан бастау батырмасынын код
             document.querySelector(".btn-new").addEventListener("click", initGame);
