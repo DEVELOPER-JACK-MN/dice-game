@@ -53,7 +53,7 @@
             // Дайсты айландыратын батырманын код
             document.querySelector(".btn-roll").addEventListener("click", function(){  
                           
-        if(isNewGame){
+        if(isNewGame === true){
 
             // 1 - 6 ишинде RANDOM сан шыгарып алатын код
             var diceNumber = Math.floor ( Math.random () * 6) +1;   
@@ -89,7 +89,7 @@
             document.getElementById('score-' + activePlayer).textContent = scores[activePlayer];
         
         // Ойыншынын женимпаз болганын ( упайы 100 - ден коппе екенин) тексеретин код
-        if(scores[activePlayer] >=10){
+        if(scores[activePlayer] >=100){
             
             //Ойыннын биткенин билдреди
             isNewGame = false;
